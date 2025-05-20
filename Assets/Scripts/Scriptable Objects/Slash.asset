@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a894dd2372ed3d42bdd5a18d6da8da4, type: 3}
+  m_Name: Slash
+  m_EditorClassIdentifier: 
+  type: 0
+  cardName: Slash
+  cardCost: 1
+  cardDescription: Deal 4 damage. \nDeal additional 6 damage if the target has 0
+    block.
+  cardImage: {fileID: 1744151977, guid: 132358e9bf26b60458b731bf001e31db, type: 3}
+  effects:
+  - target: 0
+    type: 0
+    value: 4
+    mainEffect: 1
+    effectName: damage
+    buffName: 
+    debuffName: 
+    conditions: []
+  - target: 0
+    type: 0
+    value: 6
+    mainEffect: 0
+    effectName: additional damage
+    buffName: 
+    debuffName: 
+    conditions:
+    - target: 0
+      type: 1
+      value: 0
+      valueRange: 0
+      buffName: 
+      debuffName: 
