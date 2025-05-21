@@ -35,9 +35,8 @@ MonoBehaviour:
     buffName: 
     debuffName: 
     conditions:
-    - target: 0
+    - target: 1
       type: 1
       value: 0
       valueRange: 0
-      buffName: 
-      debuffName: 
+      statusName: 

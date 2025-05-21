@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,7 @@ public class CardData : ScriptableObject
     public Sprite cardImage;
 
     public CardEffect[] effects;
+
 }
 
 [System.Serializable]
@@ -54,27 +56,25 @@ public class EffectCondition
 {
     public enum Target
     {
-        Enemy = 0,
-        Self = 1
+        Self = 0,
+        Enemy = 1
     }
     public enum Type
     {
         Health = 0,
         Block = 1,
-        Buff = 2,
-        Debuff = 3,
-        Kill = 4
+        Status = 2,
+        Kill = 3
     }
     public enum Range
     {
-        Equal = 0,
-        Less = 1,
-        More = 2,
+        equal = 0,
+        less = 1,
+        more = 2,
     }
     public Target target;
     public Type type;
     public int value;
     public Range valueRange;
-    public string buffName;
-    public string debuffName;
+    public string statusName;
 }
