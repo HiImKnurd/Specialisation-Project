@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class DeckManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public List<CardInstance> cards = new List<CardInstance>();
+    [SerializeField] CardTemplate defaultAttack;
+    [SerializeField] CardTemplate defaultDefend;
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField] int maxDeckSize = 20;
+
+    private void Start()
     {
-        
+        int defaultCount = maxDeckSize / 4;
+        for(int i = 0; i < defaultCount; i++)
+        {
+            cards.Add(new CardInstance(defaultAttack));
+            cards.Add(new CardInstance(defaultDefend));
+        }
     }
 }

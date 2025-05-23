@@ -7,7 +7,8 @@ using UnityEngine.UI;
 
 public class CardDisplay : MonoBehaviour
 {
-    [SerializeField] CardData cardData;
+    public CardInstance card;
+    CardData cardData;
 
     [SerializeField] Image cardImage;
     [SerializeField] TMP_Text cardCost;
@@ -18,6 +19,12 @@ public class CardDisplay : MonoBehaviour
 
     private void Start()
     {
+        
+    }
+
+    public void UpdateCardDisplay()
+    {
+        cardData = card.cardData;
         if (cardData == null) return;
 
         cardImage.sprite = cardData.cardImage;
@@ -48,11 +55,11 @@ public class CardDisplay : MonoBehaviour
             }
             if (effect.target == CardEffect.Target.Self)
             {
-                descriptionText += $"Gain {effect.value} {effect.effectName}";
+                descriptionText += $"Gain {effect.value} {(effect.effectName != "" ? effect.effectName : effect.type.ToString().ToLower())}";
             }
             else
             {
-                descriptionText += $"Deal {effect.value} {effect.effectName}";
+                descriptionText += $"Deal {effect.value} {(effect.effectName != "" ? effect.effectName : effect.ToString().ToLower())}";
             }
 
             if (effect.conditions.Length == 0)

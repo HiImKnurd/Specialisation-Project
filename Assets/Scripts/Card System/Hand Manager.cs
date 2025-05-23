@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
 public class HandManager : MonoBehaviour
@@ -10,6 +11,10 @@ public class HandManager : MonoBehaviour
     public float handSpacing = 20f; // How much the cards space apart in the hand
     public float verticalSpacing = 5f; // How much the cards space out vertically
     public List<GameObject> cardsInHand = new List<GameObject>(); // The cards currently held
+    public List<GameObject> cardsInDraw = new List<GameObject>();
+    public List<GameObject> cardsInDiscard = new List<GameObject>();
+
+    [SerializeField] DeckManager deck;
 
     public int handSize = 6;
 
@@ -19,24 +24,68 @@ public class HandManager : MonoBehaviour
     }
     private void Update()
     {
-        UpdateHandVisual();
+        //UpdateHandVisual();
     }
     void InitialiseCards()
     {
-        for(int i = 0; i < handSize; i++)
+        foreach(CardInstance card in deck.cards)
         {
-            AddCardsToHand();
+            GameObject newCard = Instantiate(cardPrefab, handTransform.position, Quaternion.identity, handTransform);
+            CardDisplay display = newCard.GetComponent<CardDisplay>();
+            display.card = card;
+            display.UpdateCardDisplay();
+            cardsInDraw.Add(newCard);
+            newCard.SetActive(false);
         }
+        ShuffleDrawPile();
+        DrawHand();
     }
-
-    public void AddCardsToHand()
+    void DrawHand()
     {
-        GameObject newCard = Instantiate(cardPrefab, handTransform.position, Quaternion.identity, handTransform);
-        cardsInHand.Add(newCard);
-
+        for (int x = 0; x < handSize; x++)
+        {
+            if (cardsInDraw.Count == 0) RefillDrawPile();
+            DrawCard();
+        }
         UpdateHandVisual();
     }
+    public void DrawCard()
+    {
+        cardsInHand.Add(cardsInDraw[0]);
+        cardsInDraw[0].SetActive(true);
+        cardsInDraw.Remove(cardsInDraw[0]);
+    }
 
+    public void DiscardAll()
+    {
+        foreach(GameObject card in cardsInHand)
+        {
+            cardsInDiscard.Add(card);
+            
+            card.SetActive(false);
+        }
+        cardsInHand.Clear();
+        DrawHand();
+    }
+    void RefillDrawPile()
+    {
+        foreach(GameObject card in cardsInDiscard)
+        {
+            cardsInDraw.Add(card);
+        }
+        cardsInDiscard.Clear();
+        ShuffleDrawPile();
+    }
+    public void ShuffleDrawPile()
+    {
+        for (int i = cardsInDraw.Count - 1; i > 0; i--)
+        {
+            int randomIndex = Random.Range(0, i + 1);
+            GameObject temp = cardsInDraw[i];
+            cardsInDraw[i] = cardsInDraw[randomIndex];
+            cardsInDraw[randomIndex] = temp;
+        }
+    }
     void UpdateHandVisual()
     {
         int cardCount = cardsInHand.Count;

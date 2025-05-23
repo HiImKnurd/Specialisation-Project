@@ -5,7 +5,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Card")]
-public class CardData : ScriptableObject
+public class CardTemplate : ScriptableObject
+{
+    public CardData cardData;
+}
+
+[System.Serializable]
+public class CardData
 {
     public enum cardType
     {
@@ -21,7 +27,6 @@ public class CardData : ScriptableObject
     public Sprite cardImage;
 
     public CardEffect[] effects;
-
 }
 
 [System.Serializable]

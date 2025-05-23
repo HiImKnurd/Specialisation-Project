@@ -12,71 +12,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a894dd2372ed3d42bdd5a18d6da8da4, type: 3}
   m_Name: Kill
   m_EditorClassIdentifier: 
-  type: 0
-  cardName: do everything lmao
-  cardCost: 5
-  cardDescription: 
-  cardImage: {fileID: 21300000, guid: c1073028faea5c14192b7ac7831dd8fd, type: 3}
-  effects:
-  - target: 0
+  cardData:
     type: 0
-    value: 20
-    mainEffect: 1
-    effectName: damage
-    buffName: 
-    debuffName: 
-    conditions:
+    cardName: Exodia
+    cardCost: 0
+    cardDescription: 
+    cardImage: {fileID: 21300000, guid: c1073028faea5c14192b7ac7831dd8fd, type: 3}
+    effects:
+    - target: 0
+      type: 0
+      value: 20
+      mainEffect: 1
+      effectName: 
+      buffName: 
+      debuffName: 
+      conditions: []
+    - target: 1
+      type: 1
+      value: 20
+      mainEffect: 1
+      effectName: block
+      buffName: 
+      debuffName: 
+      conditions: []
     - target: 0
       type: 0
       value: 50
-      valueRange: 1
-      statusName: 
-    - target: 1
-      type: 1
-      value: 0
-      valueRange: 2
-      statusName: 
-  - target: 1
-    type: 1
-    value: 100
-    mainEffect: 1
-    effectName: block
-    buffName: 
-    debuffName: 
-    conditions:
-    - target: 1
-      type: 3
-      value: 0
-      valueRange: 0
-      statusName: 
-  - target: 1
-    type: 4
-    value: 100
-    mainEffect: 1
-    effectName: block
-    buffName: 
-    debuffName: 
-    conditions:
-    - target: 1
-      type: 3
-      value: 0
-      valueRange: 0
-      statusName: 
-  - target: 0
-    type: 3
-    value: 3
-    mainEffect: 1
-    effectName: Exposed
-    buffName: 
-    debuffName: 
-    conditions:
-    - target: 1
-      type: 0
-      value: 50
-      valueRange: 2
-      statusName: 
-    - target: 1
-      type: 2
-      value: 0
-      valueRange: 0
-      statusName: Exposed
+      mainEffect: 0
+      effectName: additional damage
+      buffName: 
+      debuffName: 
+      conditions:
+      - target: 1
+        type: 0
+        value: 50
+        valueRange: 1
+        statusName: 
+      - target: 0
+        type: 0
+        value: 50
+        valueRange: 2
+        statusName: 

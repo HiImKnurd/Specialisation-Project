@@ -12,17 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a894dd2372ed3d42bdd5a18d6da8da4, type: 3}
   m_Name: Attack
   m_EditorClassIdentifier: 
-  type: 0
-  cardName: Attack
-  cardCost: 1
-  cardDescription: Deal 5 damage
-  cardImage: {fileID: 21300000, guid: c1073028faea5c14192b7ac7831dd8fd, type: 3}
-  effects:
-  - target: 0
+  cardData:
     type: 0
-    value: 5
-    mainEffect: 1
-    effectName: damage
-    buffName: 
-    debuffName: 
-    conditions: []
+    cardName: Attack
+    cardCost: 1
+    cardDescription: 
+    cardImage: {fileID: 21300000, guid: c1073028faea5c14192b7ac7831dd8fd, type: 3}
+    effects:
+    - target: 0
+      type: 0
+      value: 6
+      mainEffect: 1
+      effectName: 
+      buffName: 
+      debuffName: 
+      conditions: []

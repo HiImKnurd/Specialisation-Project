@@ -12,17 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a894dd2372ed3d42bdd5a18d6da8da4, type: 3}
   m_Name: Defend
   m_EditorClassIdentifier: 
-  type: 1
-  cardName: Defend
-  cardCost: 1
-  cardDescription: Gain 5 block.
-  cardImage: {fileID: -2081245629, guid: 132358e9bf26b60458b731bf001e31db, type: 3}
-  effects:
-  - target: 1
+  cardData:
     type: 1
-    value: 5
-    mainEffect: 1
-    effectName: block
-    buffName: 
-    debuffName: 
-    conditions: []
+    cardName: Defend
+    cardCost: 1
+    cardDescription: 
+    cardImage: {fileID: -2081245629, guid: 132358e9bf26b60458b731bf001e31db, type: 3}
+    effects:
+    - target: 1
+      type: 1
+      value: 5
+      mainEffect: 1
+      effectName: 
+      buffName: 
+      debuffName: 
+      conditions: []
