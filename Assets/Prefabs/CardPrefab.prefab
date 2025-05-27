@@ -222,6 +222,7 @@ RectTransform:
   - {fileID: 7551278728254751564}
   - {fileID: 8103713171131710852}
   - {fileID: 3304498374825364243}
+  - {fileID: 5959056623248652115}
   m_Father: {fileID: 2785914321938018498}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -367,6 +368,59 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &3823682213526826253
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5959056623248652115}
+  - component: {fileID: 8253119527322553878}
+  m_Layer: 0
+  m_Name: Target Arrow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5959056623248652115
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3823682213526826253}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7775330773060690352}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8253119527322553878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3823682213526826253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b680fdecc7a59c24b8e4ea4fadad91c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowPrefab: {fileID: 2634618707970564936, guid: a3991a0fefb7c1148ad284601490aaa2, type: 3}
+  segmentPrefab: {fileID: 7428081737396930259, guid: 2141b10d55dc812428022f2df5c2a983, type: 3}
+  segmentPoolSize: 20
+  segmentSpacing: 70
+  arrowAngle: 180
 --- !u!1 &3919563110539313830
 GameObject:
   m_ObjectHideFlags: 0
@@ -1112,7 +1166,12 @@ MonoBehaviour:
   rectTransform: {fileID: 7775330773060690352}
   canvas: {fileID: 1139821324396026987}
   highlight: {fileID: 3919563110539313830}
-  verticalHighlightMovement: 75
+  verticalHoverMovement: 75
+  dragThreshold: 100
+  playPosition: {fileID: 0}
+  arcRenderer: {fileID: 8253119527322553878}
+  dragging: 0
+  hovering: 0
 --- !u!61 &6477149051811019315
 BoxCollider2D:
   m_ObjectHideFlags: 0

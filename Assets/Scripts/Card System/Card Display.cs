@@ -59,7 +59,7 @@ public class CardDisplay : MonoBehaviour
             }
             else
             {
-                descriptionText += $"Deal {effect.value} {(effect.effectName != "" ? effect.effectName : effect.ToString().ToLower())}";
+                descriptionText += $"Deal {effect.value} {(effect.effectName != "" ? effect.effectName : effect.type.ToString().ToLower())}";
             }
 
             if (effect.conditions.Length == 0)

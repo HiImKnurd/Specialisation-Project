@@ -11,7 +11,7 @@ public class DeckManager : MonoBehaviour
 
     [SerializeField] int maxDeckSize = 20;
 
-    private void Start()
+    private void Awake()
     {
         int defaultCount = maxDeckSize / 4;
         for(int i = 0; i < defaultCount; i++)
