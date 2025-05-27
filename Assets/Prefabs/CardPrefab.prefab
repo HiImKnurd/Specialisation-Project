@@ -1163,15 +1163,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e769db7a3df09a542aca3a9b1a855559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardObject: {fileID: 0}
   rectTransform: {fileID: 7775330773060690352}
   canvas: {fileID: 1139821324396026987}
   highlight: {fileID: 3919563110539313830}
   verticalHoverMovement: 75
-  dragThreshold: 100
+  dragThreshold: 200
   playPosition: {fileID: 0}
   arcRenderer: {fileID: 8253119527322553878}
+  targeted: 0
   dragging: 0
   hovering: 0
+  canPlay: 0
 --- !u!61 &6477149051811019315
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -55,7 +55,13 @@ public class HandManager : MonoBehaviour
         cardsInDraw[0].SetActive(true);
         cardsInDraw.Remove(cardsInDraw[0]);
     }
-
+    public void DiscardCard(GameObject card)
+    {
+        cardsInDiscard.Add(card);
+        card.SetActive(false);
+        cardsInHand.Remove(card);
+        UpdateHandVisual();
+    }
     public void DiscardAll()
     {
         foreach(GameObject card in cardsInHand)
@@ -93,6 +99,7 @@ public class HandManager : MonoBehaviour
         {
             float cardIndex = i - (cardCount - 1) / 2f;
             float normalisedPos = 2f * i/(cardCount - 1) - 1f;
+            if(cardCount == 1) normalisedPos = 0f;
             cardsInHand[i].transform.rotation = Quaternion.Euler(0f, 0f, handFanning * cardIndex);
             cardsInHand[i].transform.localPosition = new Vector3(handSpacing * cardIndex, verticalSpacing * (1 - normalisedPos * normalisedPos), 0f);
         }

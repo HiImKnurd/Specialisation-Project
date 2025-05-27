@@ -24,6 +24,7 @@ public class CardData
     public string cardName;
     public int cardCost;
     public string cardDescription;
+    public bool targeted;
     public Sprite cardImage;
 
     public CardEffect[] effects;

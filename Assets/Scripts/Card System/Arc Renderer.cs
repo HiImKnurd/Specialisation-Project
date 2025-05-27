@@ -45,13 +45,14 @@ public class ArcRenderer : MonoBehaviour
     private void UpdateArc(Vector3 start, Vector3 midpoint, Vector3 end)
     {
         int segmentNum = Mathf.CeilToInt(Vector3.Distance(start, end) / segmentSpacing);
-        if(segmentNum > segmentPoolSize) segmentNum = segmentPoolSize;
-        for(int i =0; i < segmentNum; i++)
+        if (segmentNum < 2) return;
+        if (segmentNum > segmentPoolSize) segmentNum = segmentPoolSize;
+        for(int i = 0; i < segmentNum; i++)
         {
             float t = Mathf.Clamp(i / (float)segmentNum, 0f, 1f);
             Vector3 position = QuadraticBezierPoint(start, midpoint, end, t);
             // Skip one dot to make room for arrowhead
-            if( i != segmentNum - 1)
+            if( i < segmentNum - 1)
             {
                 segmentPool[i].transform.position = position;
                 segmentPool[i].SetActive(true);
@@ -70,8 +71,6 @@ public class ArcRenderer : MonoBehaviour
                 segmentPool[x].SetActive(false);
             }
         }
-
-        
     }
 
     private Vector3 QuadraticBezierPoint(Vector3 p0, Vector3 p1, Vector3 p2, float t)

@@ -4,8 +4,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CardMovement : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IPointerDownHandler, IPointerUpHandler
+public class CardTargeting : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
+    [SerializeField] CardDisplay cardObject;
     [SerializeField] RectTransform rectTransform;
     [SerializeField] Canvas canvas;
     [SerializeField] GameObject highlight;
@@ -15,24 +16,31 @@ public class CardMovement : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     [SerializeField] ArcRenderer arcRenderer;
     Vector3 originalScale;
     Vector3 originalPosition;
-    Vector2 originalPointerPosition;
     Vector2 originalPanelPosition;
 
+    public bool targeted = false;
     public bool dragging = false;
     public bool hovering = false;
+
+    public bool canPlay = false;
+    Enemy target;
+    public static System.Action<CardDisplay> playCard;
+    public static System.Action<CardDisplay, Enemy> playCardTargeted;
 
     private void Awake()
     {
         //rectTransform = GetComponent<RectTransform>();
         //canvas = GetComponent<Canvas>();
         //canvas.renderMode.
+        
         canvas.overrideSorting = true;
         originalScale = transform.localScale;
         arcRenderer.gameObject.SetActive(false);
+        cardObject = GetComponent<CardDisplay>();
     }
     public void Update()
     {
-
+        
     }
     // Hovering over card
     public void OnPointerEnter(PointerEventData eventData)
@@ -62,23 +70,50 @@ public class CardMovement : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void OnDrag(PointerEventData eventData)
     {
         dragging = true;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), eventData.position, eventData.pressEventCamera, out Vector2 localPointerPosition);
-        float distance = Vector2.Distance(originalPanelPosition, eventData.position);
+        if(!cardObject.card.cardData.targeted) transform.position = Vector3.Lerp(transform.position, Input.mousePosition, 10f);
+        //RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), eventData.position, eventData.pressEventCamera, out Vector2 localPointerPosition);
+        float distance = Vector2.Distance(originalPanelPosition, Input.mousePosition);
         if (distance > dragThreshold)
         {
-            Debug.Log("Dragged past threshold!");
-            arcRenderer.gameObject.SetActive(true);
+            if (cardObject.card.cardData.targeted)
+            {
+                if (target != null) target.highlight.SetActive(false);
+                arcRenderer.gameObject.SetActive(true);
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+                if (hit.collider == null)
+                {
+                    canPlay = false;
+                    return;
+                }
+                if(hit.collider.TryGetComponent<Enemy>(out target))
+                {
+                    canPlay = true;
+                    target.highlight.SetActive(true);
+                }
+            }
+            else
+            {
+                canPlay = true;
+            }
         }
+        else canPlay = false;
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), eventData.position, eventData.pressEventCamera, out originalPointerPosition); //Using the event system to detect what is clicked on
+        //RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), eventData.position, eventData.pressEventCamera, out originalPointerPosition); //Using the event system to detect what is clicked on
         originalPanelPosition = eventData.position;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        if (canPlay)
+        {
+            if (cardObject.card.cardData.targeted) playCardTargeted?.Invoke(cardObject, target);
+            else playCard?.Invoke(cardObject); 
+        }
+        canPlay = false;
         arcRenderer.gameObject.SetActive(false);
         dragging = false;
         canvas.sortingOrder = 0;
