@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class CardDisplay : MonoBehaviour
 {
-    public CardInstance card;
+    public CardInstance cardInstance;
     CardData cardData;
 
     [SerializeField] Image cardImage;
@@ -24,7 +24,7 @@ public class CardDisplay : MonoBehaviour
 
     public void UpdateCardDisplay()
     {
-        cardData = card.cardData;
+        cardData = cardInstance.cardData;
         if (cardData == null) return;
 
         cardImage.sprite = cardData.cardImage;
@@ -73,7 +73,7 @@ public class CardDisplay : MonoBehaviour
                 if (conditiontext != "") conditiontext += " and";
                 EffectCondition condition = effect.conditions[x];
                 conditiontext += $" if {(condition.target == 0 ? "your" : "target's")}" +
-                    $"{(condition.type == EffectCondition.Type.Kill ? " killed." : $" {(condition.type == EffectCondition.Type.Status ? condition.statusName : condition.type.ToString())} is {(condition.valueRange == 0 ? "equal to" : condition.valueRange.ToString() + " than")} {condition.value}")}";
+                    $"{(condition.type == EffectCondition.Type.Kill ? " killed." : $" {(condition.type == EffectCondition.Type.Status ? condition.status.effect.ToString() : condition.type.ToString())} is {(condition.valueRange == 0 ? "equal to" : condition.valueRange.ToString() + " than")} {condition.value}")}";
             }
             descriptionText += conditiontext;
             descriptionText += ". ";

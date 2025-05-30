@@ -42,9 +42,8 @@ public class CardEffect
     {
         Damage = 0,
         Block = 1,
-        Buff = 2,
-        Debuff = 3,
-        Break = 4
+        Status = 2,
+        Break = 3
     }
     public Target target;
     public EffectType type;
@@ -52,8 +51,7 @@ public class CardEffect
     public bool mainEffect;
 
     public string effectName;
-    public string buffName;
-    public string debuffName;
+    public StatusEffect status;
 
     public EffectCondition[] conditions;
 }
@@ -82,5 +80,27 @@ public class EffectCondition
     public Type type;
     public int value;
     public Range valueRange;
-    public string statusName;
+    public StatusEffect status;
 }
+
+public class StatusEffect
+{ 
+    public enum Type
+    {
+        Debuff = 0,
+        Buff = 1
+    }
+    public enum Effect
+    {
+        Weakened,
+        Exposed,
+        Pain,
+        Motivated,
+        Energized 
+    }
+    public Type type;
+    public Effect effect;
+    public int stacks;
+    
+}
+

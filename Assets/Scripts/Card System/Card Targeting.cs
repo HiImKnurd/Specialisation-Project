@@ -70,12 +70,12 @@ public class CardTargeting : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void OnDrag(PointerEventData eventData)
     {
         dragging = true;
-        if(!cardObject.card.cardData.targeted) transform.position = Vector3.Lerp(transform.position, Input.mousePosition, 10f);
+        if(!cardObject.cardInstance.cardData.targeted) transform.position = Vector3.Lerp(transform.position, Input.mousePosition, 10f);
         //RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), eventData.position, eventData.pressEventCamera, out Vector2 localPointerPosition);
         float distance = Vector2.Distance(originalPanelPosition, Input.mousePosition);
         if (distance > dragThreshold)
         {
-            if (cardObject.card.cardData.targeted)
+            if (cardObject.cardInstance.cardData.targeted)
             {
                 if (target != null) target.highlight.SetActive(false);
                 arcRenderer.gameObject.SetActive(true);
@@ -110,7 +110,7 @@ public class CardTargeting : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         if (canPlay)
         {
-            if (cardObject.card.cardData.targeted) playCardTargeted?.Invoke(cardObject, target);
+            if (cardObject.cardInstance.cardData.targeted) playCardTargeted?.Invoke(cardObject, target);
             else playCard?.Invoke(cardObject); 
         }
         canPlay = false;
