@@ -22,22 +22,17 @@ MonoBehaviour:
     effects:
     - target: 0
       type: 0
-      value: 4
-      mainEffect: 1
-      effectName: 
-      buffName: 
-      debuffName: 
-      conditions: []
-    - target: 0
-      type: 0
       value: 6
       mainEffect: 1
-      effectName: additional damage
-      buffName: 
-      debuffName: 
+      effectName: 
       conditions:
       - target: 1
         type: 1
         value: 0
         valueRange: 0
-        statusName: 
+    - target: 0
+      type: 0
+      value: 4
+      mainEffect: 1
+      effectName: 
+      conditions: []

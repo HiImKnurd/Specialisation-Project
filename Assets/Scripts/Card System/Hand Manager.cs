@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
@@ -15,6 +16,9 @@ public class HandManager : MonoBehaviour
     public List<GameObject> cardsInDiscard = new List<GameObject>();
 
     [SerializeField] DeckManager deck;
+
+    [SerializeField] TMP_Text drawPileSize;
+    [SerializeField] TMP_Text discardPileSize;
 
     public int handSize = 6;
 
@@ -103,5 +107,7 @@ public class HandManager : MonoBehaviour
             cardsInHand[i].transform.rotation = Quaternion.Euler(0f, 0f, handFanning * cardIndex);
             cardsInHand[i].transform.localPosition = new Vector3(handSpacing * cardIndex, verticalSpacing * (1 - normalisedPos * normalisedPos), 0f);
         }
+        drawPileSize.text = cardsInDraw.Count + "";
+        discardPileSize.text = cardsInDiscard.Count + "";
     }
 }

@@ -110,7 +110,11 @@ public class CardTargeting : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         if (canPlay)
         {
-            if (cardObject.cardInstance.cardData.targeted) playCardTargeted?.Invoke(cardObject, target);
+            if (cardObject.cardInstance.cardData.targeted)
+            {
+                playCardTargeted?.Invoke(cardObject, target);
+                target.highlight.SetActive(false);
+            }
             else playCard?.Invoke(cardObject); 
         }
         canPlay = false;

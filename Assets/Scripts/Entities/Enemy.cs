@@ -1,19 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Enemy : Entity
 {
     public GameObject highlight;
-    // Start is called before the first frame update
-    void Start()
+    public string enemyName;
+    [SerializeField] TMP_Text nameText;
+
+    new void Start()
     {
-        
+        nameText.text = enemyName;
+        base.Start();
     }
 
-    // Update is called once per frame
-    void Update()
+    new void Update()
     {
-        
+        base.Update();
     }
 }
