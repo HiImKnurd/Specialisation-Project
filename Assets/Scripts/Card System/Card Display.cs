@@ -43,17 +43,17 @@ public class CardDisplay : MonoBehaviour
 
     private void UpdateCardDescription()
     {
-        CardEffect effect;
+        Effect effect;
         for (int i = 0; i < cardData.effects.Length; i++)
         {
             Debug.Log("Add effect out of " + cardData.effects.Length);
             effect = cardData.effects[i];
-            if (effect.type == CardEffect.EffectType.Break)
+            if (effect.type == Effect.EffectType.Break)
             {
                 descriptionText += "Break. ";
                 continue;
             }
-            if (effect.target == CardEffect.Target.Self)
+            if (effect.target == Effect.Target.Self)
             {
                 descriptionText += $"Gain {effect.value} {(effect.effectName != "" ? effect.effectName : effect.type.ToString().ToLower())}";
             }

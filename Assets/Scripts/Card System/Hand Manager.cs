@@ -44,9 +44,9 @@ public class HandManager : MonoBehaviour
         ShuffleDrawPile();
         DrawHand();
     }
-    void DrawHand()
+    public void DrawHand()
     {
-        for (int x = 0; x < handSize; x++)
+        while(cardsInHand.Count < handSize)
         {
             if (cardsInDraw.Count == 0) RefillDrawPile();
             DrawCard();

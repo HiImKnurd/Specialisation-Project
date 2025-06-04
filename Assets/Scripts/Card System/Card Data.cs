@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -27,11 +28,11 @@ public class CardData
     public bool targeted;
     public Sprite cardImage;
 
-    public CardEffect[] effects;
+    public Effect[] effects;
 }
 
 [System.Serializable]
-public class CardEffect
+public class Effect
 {
     public enum Target
     {
@@ -83,6 +84,7 @@ public class EffectCondition
     public StatusEffect status;
 }
 
+[Serializable]
 public class StatusEffect
 { 
     public enum Type

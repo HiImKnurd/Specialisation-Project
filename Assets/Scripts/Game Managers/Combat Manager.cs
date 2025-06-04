@@ -6,7 +6,7 @@ public class CombatManager : MonoBehaviour
 {
     [SerializeField] HandManager handManager;
     [SerializeField] Entity player;
-    Enemy[] enemies;
+    [SerializeField] Enemy[] enemies;
     private void OnEnable()
     {
         CardTargeting.playCard += HandleCard;
@@ -17,20 +17,54 @@ public class CombatManager : MonoBehaviour
         CardTargeting.playCard -= HandleCard;
         CardTargeting.playCardTargeted -= HandleCardTargeted;
     }
+
     void HandleCard(CardDisplay card)
     {
-        PlayCardEffects(card.cardInstance.cardData);
+        PlayEffects(card.cardInstance.cardData);
         handManager.DiscardCard(card.gameObject);
     }
     void HandleCardTargeted(CardDisplay card, Enemy target)
     {
-        PlayCardEffects(card.cardInstance.cardData, target);
+        PlayEffects(card.cardInstance.cardData, target);
         handManager.DiscardCard(card.gameObject);
     }
 
-    void PlayCardEffects(CardData card, Enemy target = null)
+    public void CycleTurns()
     {
-        foreach(CardEffect effect in card.effects)
+        //handManager.DiscardAll();
+
+        foreach(Enemy enemy in enemies)
+        {
+            PlayEnemyActions(enemy);
+        }
+
+        handManager.DrawHand();
+
+        foreach(Enemy enemy in enemies)
+        {
+            enemy.ChooseActions();
+        }
+    }
+
+    void PlayEnemyActions(Enemy enemy)
+    {
+        foreach(EnemyAction action in enemy.turnActions)
+        {
+            foreach(Effect effect in action.effects)
+            {
+                if (effect.target == Effect.Target.Enemy)
+                {
+                    ProcessEffect(effect);
+                }
+                else ProcessEffect(effect, enemy);
+            }
+        }
+        enemy.turnActions.Clear();
+    }
+
+    void PlayEffects(CardData card, Enemy target = null)
+    {
+        foreach(Effect effect in card.effects)
         {
             bool conditionsMet = true;
             foreach(EffectCondition condition in effect.conditions)
@@ -85,31 +119,31 @@ public class CombatManager : MonoBehaviour
                 }
         }
     }
-    void ProcessEffect(CardEffect cardeffect, Enemy enemy = null)
+    void ProcessEffect(Effect Effect, Enemy enemy = null)
     {
         Entity target = enemy != null ? enemy : player;
-        switch (cardeffect.type)
+        switch (Effect.type)
         {
-            case CardEffect.EffectType.Damage:
-                target.TakeDamage(cardeffect.value);
+            case Effect.EffectType.Damage:
+                target.TakeDamage(Effect.value);
                 break;
-            case CardEffect.EffectType.Block:
-                target.block += cardeffect.value;
+            case Effect.EffectType.Block:
+                target.block += Effect.value;
                 break;
-            case CardEffect.EffectType.Status: 
-                StatusEffect match = target.statusEffects.Find(s => s.effect == cardeffect.status.effect);
+            case Effect.EffectType.Status: 
+                StatusEffect match = target.statusEffects.Find(s => s.effect == Effect.status.effect);
                 if (match != null)
                 {
-                    match.stacks += cardeffect.value;
+                    match.stacks += Effect.value;
                 }
                 else
                 {
-                    StatusEffect status = cardeffect.status;
+                    StatusEffect status = Effect.status;
                     target.statusEffects.Add(status);
-                    status.stacks = cardeffect.value;
+                    status.stacks = Effect.value;
                 }
                 break;
-            case CardEffect.EffectType.Break:
+            case Effect.EffectType.Break:
                 break;
         }
     }
